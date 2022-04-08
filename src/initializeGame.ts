@@ -37,11 +37,10 @@ function generateGameBoard(boardSize: number) : GameBoard {
     let gameBoard : GameBoard = []
     let rowArray : GameBoardRow  = []
     for (let i = 0; i < boardSize; i++) {
-        rowArray.push(" ")
+        rowArray.push("_")
     }
     for (let i = 0; i < boardSize; i++) {
         gameBoard.push(rowArray)
     }
-    console.log(gameBoard)
     return gameBoard
 }

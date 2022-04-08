@@ -30,11 +30,10 @@ function generateGameBoard(boardSize) {
     var gameBoard = [];
     var rowArray = [];
     for (var i = 0; i < boardSize; i++) {
-        rowArray.push(" ");
+        rowArray.push("_");
     }
     for (var i = 0; i < boardSize; i++) {
         gameBoard.push(rowArray);
     }
-    console.log(gameBoard);
     return gameBoard;
 }
