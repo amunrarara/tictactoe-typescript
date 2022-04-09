@@ -1,6 +1,6 @@
-- TicTacToe - Variable Board Size
--- Created by Acea Spades Black, April 2022
---- Contact: aceaspades@protonmail.com 
+# TicTacToe - Variable Board Size
+### Created by Acea Spades Black, April 2022
+### Contact: aceaspades@protonmail.com 
 
 Required dependencies:
 - Node (18 or latest)
