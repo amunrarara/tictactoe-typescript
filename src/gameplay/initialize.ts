@@ -1,7 +1,7 @@
 import { GameBoard } from '../../utils/types'
 import { inputGameBoardSize, generateGameBoard } from './board'
 
-export default function initializeGame() : GameBoard {
+export default function initialize() : GameBoard {
     try {
         displayWelcomeMessage()
         const gameBoardSize = inputGameBoardSize()
@@ -28,6 +28,7 @@ function displayWelcomeMessage() : void {
         2. First player, x, will pick a square to place their token. You'll pick a row (1 to n), then a column (1 to n).
 
         3. If you made a perfect line, you win! 
+
     `)
 }
 

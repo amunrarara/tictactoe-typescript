@@ -1,5 +1,10 @@
 {
     "compilerOptions": {
-        "types": ["node", "./utils/types"]
+        "target": "es5",
+        "module": "commonjs",
+        "rootDir": "./src",
+        // "sourceMap": true,
+        "outDir": "dist",
+        "types": ["node", "./utils/types"],
     }
 }

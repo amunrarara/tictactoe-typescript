@@ -1,4 +1,5 @@
 "use strict";
+// Board creation, mutation, and display
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
         if (ar || !(i in from)) {
@@ -8,7 +9,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateGameBoard = exports.displayGameBoard = exports.generateGameBoard = exports.inputGameBoardSize = void 0;
 var prompt = require('prompt-sync')();
 function inputGameBoardSize() {
@@ -36,12 +37,15 @@ function generateGameBoard(boardSize) {
 }
 exports.generateGameBoard = generateGameBoard;
 function displayGameBoard(gameBoard) {
+    console.log("");
     console.log("===================");
+    console.log("");
     gameBoard.forEach(function (row, index) {
         console.log.apply(console, __spreadArray([index + 1, ": "], row, false));
     });
     console.log("");
     console.log("===================");
+    console.log("");
 }
 exports.displayGameBoard = displayGameBoard;
 function updateGameBoard(gameBoard, rowColumn, token) {

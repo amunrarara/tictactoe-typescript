@@ -1,5 +1,7 @@
+// Board creation, mutation, and display
+
 const prompt = require('prompt-sync')()
-import { GameBoard, GameBoardRow } from "../../utils/types"
+import { GameBoard } from "../../utils/types"
 
 export function inputGameBoardSize() : number {
     let input: any
@@ -24,12 +26,15 @@ return gameBoard
 }
 
 export function displayGameBoard(gameBoard: GameBoard): void {
+    console.log("")
     console.log("===================")
+    console.log("")
     gameBoard.forEach((row, index) => {
         console.log(index + 1, ": ", ...row)
     })
     console.log("")
     console.log("===================")
+    console.log("")
 }
 
 export function updateGameBoard(gameBoard: GameBoard, rowColumn: number[], token: string): void{

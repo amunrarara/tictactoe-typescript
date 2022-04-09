@@ -1,6 +1,7 @@
 "use strict";
-exports.__esModule = true;
-exports.handlePlayerChoice = void 0;
+// Gameplay logic
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkBoardForVictory = exports.handlePlayerChoice = void 0;
 var prompt = require('prompt-sync')();
 var board_1 = require("./board");
 function handlePlayerChoice(gameBoard, currentPlayer) {
@@ -33,4 +34,42 @@ function chooseSquare(gameBoard, currentPlayer) {
         chosenSquare.push(rowSelection - 1, columnSelection - 1);
     }
     return chosenSquare;
+}
+function checkBoardForVictory(gameBoard, currentPlayer) {
+    var line = [];
+    // Check horizontal
+    for (var i = 0; i < gameBoard.length; i++) {
+        if (isLineVictory(gameBoard[i], currentPlayer))
+            return true;
+    }
+    // Check vertical
+    for (var i = 0; i < gameBoard.length; i++) {
+        for (var j = 0; j < gameBoard.length; j++)
+            line.push(gameBoard[j][i]);
+        if (isLineVictory(line, currentPlayer))
+            return true;
+        line.length = 0;
+    }
+    // Check diagonal-left
+    for (var i = 0; i < gameBoard.length; i++)
+        line.push(gameBoard[i][i]);
+    if (isLineVictory(line, currentPlayer))
+        return true;
+    line.length = 0;
+    // Check reverse-diagonal
+    var offset;
+    for (var i = 0; i < gameBoard.length; i++) {
+        offset = (gameBoard.length - 1) - i;
+        line.push(gameBoard[i][offset]);
+    }
+    if (isLineVictory(line, currentPlayer))
+        return true;
+    else
+        return false;
+}
+exports.checkBoardForVictory = checkBoardForVictory;
+function isLineVictory(line, currentPlayer) {
+    if (line.includes("_"))
+        return false;
+    return line.every(function (value) { return value === currentPlayer; });
 }
