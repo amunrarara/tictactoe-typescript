@@ -7,6 +7,7 @@ var board_1 = require("./board");
 function handlePlayerChoice(gameBoard, currentPlayer) {
     var chosenSquare = chooseSquare(gameBoard, currentPlayer);
     (0, board_1.updateGameBoard)(gameBoard, chosenSquare, currentPlayer);
+    return chosenSquare;
 }
 exports.handlePlayerChoice = handlePlayerChoice;
 function chooseSquare(gameBoard, currentPlayer) {
@@ -35,41 +36,45 @@ function chooseSquare(gameBoard, currentPlayer) {
     }
     return chosenSquare;
 }
-function checkBoardForVictory(gameBoard, currentPlayer) {
-    var line = [];
+function checkBoardForVictory(gameBoard, chosenSquare, currentPlayer) {
     // Check horizontal
-    for (var i = 0; i < gameBoard.length; i++) {
-        if (isLineVictory(gameBoard[i], currentPlayer))
-            return true;
-    }
+    if (isLineVictory(gameBoard[chosenSquare[0]], currentPlayer))
+        return true;
+    var line = [];
     // Check vertical
     for (var i = 0; i < gameBoard.length; i++) {
-        for (var j = 0; j < gameBoard.length; j++)
-            line.push(gameBoard[j][i]);
-        if (isLineVictory(line, currentPlayer))
+        if (!isPlayerToken((gameBoard[i][chosenSquare[1]]), currentPlayer))
+            break;
+        if (i === gameBoard.length - 1)
             return true;
-        line.length = 0;
     }
-    // Check diagonal-left
-    for (var i = 0; i < gameBoard.length; i++)
-        line.push(gameBoard[i][i]);
-    if (isLineVictory(line, currentPlayer))
-        return true;
-    line.length = 0;
-    // Check reverse-diagonal
-    var offset;
-    for (var i = 0; i < gameBoard.length; i++) {
-        offset = (gameBoard.length - 1) - i;
-        line.push(gameBoard[i][offset]);
+    if (chosenSquare[0] === chosenSquare[1]) {
+        // Check diagonal-left
+        for (var i = 0; i < gameBoard.length; i++) {
+            if (!isPlayerToken(gameBoard[i][i], currentPlayer))
+                break;
+            if (i === gameBoard.length - 1)
+                return true;
+        }
     }
-    if (isLineVictory(line, currentPlayer))
-        return true;
-    else
-        return false;
+    if ((chosenSquare[0] + chosenSquare[1]) === (gameBoard.length - 1)) {
+        // Check reverse-diagonal
+        var offset = void 0;
+        for (var i = 0; i < gameBoard.length; i++) {
+            offset = (gameBoard.length - 1) - i;
+            if (!isPlayerToken(gameBoard[i][offset], currentPlayer))
+                break;
+            if (i === gameBoard.length - 1)
+                return true;
+        }
+    }
 }
 exports.checkBoardForVictory = checkBoardForVictory;
 function isLineVictory(line, currentPlayer) {
     if (line.includes("_"))
         return false;
     return line.every(function (value) { return value === currentPlayer; });
+}
+function isPlayerToken(token, currentPlayer) {
+    return token === currentPlayer;
 }

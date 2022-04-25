@@ -1,4 +1,4 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var gameController_1 = require("./gameplay/gameController");
-(0, gameController_1.default)();
+var game_1 = require("./gameplay/game");
+(0, game_1.default)();

@@ -1,2 +1,2 @@
-import runGame from './gameplay/gameController'
+import runGame from './gameplay/game'
 runGame()

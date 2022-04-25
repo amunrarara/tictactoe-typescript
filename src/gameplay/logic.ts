@@ -4,9 +4,10 @@ const prompt = require('prompt-sync')()
 import { GameBoard } from "../../utils/types";
 import { updateGameBoard } from "./board";
 
-export function handlePlayerChoice(gameBoard: GameBoard, currentPlayer: string) : void {
+export function handlePlayerChoice(gameBoard: GameBoard, currentPlayer: string) : number[] {
     const chosenSquare: number[] = chooseSquare(gameBoard, currentPlayer)
     updateGameBoard(gameBoard, chosenSquare, currentPlayer)
+    return chosenSquare
 }
 
 function chooseSquare(gameBoard: GameBoard, currentPlayer: string) : number[] {
@@ -36,37 +37,42 @@ function chooseSquare(gameBoard: GameBoard, currentPlayer: string) : number[] {
     return chosenSquare
 }
 
-export function checkBoardForVictory(gameBoard: GameBoard, currentPlayer: string) : boolean{
-    let line = []
-
+export function checkBoardForVictory(gameBoard: GameBoard, chosenSquare: number[], currentPlayer: string) : boolean{
+    
     // Check horizontal
-    for (let i = 0; i < gameBoard.length; i++) {
-        if (isLineVictory(gameBoard[i], currentPlayer)) return true
-    }
-
+    if (isLineVictory(gameBoard[chosenSquare[0]], currentPlayer)) return true
+    
+    let line = []
     // Check vertical
     for (let i = 0; i < gameBoard.length; i++) {
-        for (let j = 0; j < gameBoard.length; j++) line.push(gameBoard[j][i])
-        if (isLineVictory(line, currentPlayer)) return true
-        line.length = 0
+        if (!isPlayerToken((gameBoard[i][chosenSquare[1]]), currentPlayer)) break
+        if (i === gameBoard.length - 1) return true
+    }
+    
+    if (chosenSquare[0] === chosenSquare[1]) {
+        // Check diagonal-left
+        for (let i = 0; i < gameBoard.length; i++) {
+            if (!isPlayerToken(gameBoard[i][i], currentPlayer)) break
+            if (i === gameBoard.length - 1) return true
+        }
     }
 
-    // Check diagonal-left
-    for (let i = 0; i < gameBoard.length; i++) line.push(gameBoard[i][i])
-    if (isLineVictory(line, currentPlayer)) return true
-    line.length = 0
-
-    // Check reverse-diagonal
-    let offset: number
-    for (let i = 0; i < gameBoard.length; i++) {
-        offset = (gameBoard.length - 1) - i
-        line.push(gameBoard[i][offset])
+    if ((chosenSquare[0] + chosenSquare[1]) === (gameBoard.length - 1)) {
+        // Check reverse-diagonal
+        let offset: number
+        for (let i = 0; i < gameBoard.length; i++) {
+            offset = (gameBoard.length - 1) - i
+            if (!isPlayerToken(gameBoard[i][offset], currentPlayer)) break
+            if (i === gameBoard.length - 1) return true
+        }
     }
-    if (isLineVictory(line, currentPlayer)) return true
-    else return false
 }
 
 function isLineVictory(line: string[], currentPlayer: string): boolean {
     if (line.includes("_")) return false
     return line.every(value => value === currentPlayer)
+}
+
+function isPlayerToken(token: string, currentPlayer: string): boolean {
+    return token === currentPlayer
 }

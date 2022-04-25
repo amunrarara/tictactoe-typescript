@@ -12,8 +12,8 @@ export default function runGame(){
         let finalRound: number = gameBoard.length * gameBoard.length
         while (round <= finalRound) {
             displayGameBoard(gameBoard)
-            handlePlayerChoice(gameBoard, currentPlayer)
-            if (checkBoardForVictory(gameBoard, currentPlayer)) declareVictory(gameBoard, currentPlayer)
+            let chosenSquare = handlePlayerChoice(gameBoard, currentPlayer)
+            if (checkBoardForVictory(gameBoard, chosenSquare, currentPlayer)) declareVictory(gameBoard, currentPlayer)
             currentPlayer === "X" ? currentPlayer = "O" : currentPlayer = "X"
             round++
         }

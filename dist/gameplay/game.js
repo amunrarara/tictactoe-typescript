@@ -12,8 +12,8 @@ function runGame() {
         var finalRound = gameBoard.length * gameBoard.length;
         while (round <= finalRound) {
             (0, board_1.displayGameBoard)(gameBoard);
-            (0, logic_1.handlePlayerChoice)(gameBoard, currentPlayer);
-            if ((0, logic_1.checkBoardForVictory)(gameBoard, currentPlayer))
+            var chosenSquare = (0, logic_1.handlePlayerChoice)(gameBoard, currentPlayer);
+            if ((0, logic_1.checkBoardForVictory)(gameBoard, chosenSquare, currentPlayer))
                 declareVictory(gameBoard, currentPlayer);
             currentPlayer === "X" ? currentPlayer = "O" : currentPlayer = "X";
             round++;
