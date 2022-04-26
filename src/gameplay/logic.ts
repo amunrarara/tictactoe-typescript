@@ -42,7 +42,6 @@ export function checkBoardForVictory(gameBoard: GameBoard, chosenSquare: number[
     // Check horizontal
     if (isLineVictory(gameBoard[chosenSquare[0]], currentPlayer)) return true
     
-    let line = []
     // Check vertical
     for (let i = 0; i < gameBoard.length; i++) {
         if (!isPlayerToken((gameBoard[i][chosenSquare[1]]), currentPlayer)) break
